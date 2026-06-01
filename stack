@@ -1,0 +1,227 @@
+```python
+STACK
+```
+
+stack adalah satu struktur data dimana penambahan dan penghapusan data, hanya dapat dilakukan pada satu ujung yang sama, atau yang biasa di kenal dengan istilah top. semakin data jauh berada dari posisi top, maka data tersebut di indikasikan berada di stack lebih lama dibandingkan dengan data yang berada dekat pada data diposisi top. jika terdapat data baru yang ditambahkan di stack, maka data ini pulalah yang akan dihapus ketika terdapat proses penghapusan data. Konsep ini dikenal dengan nama LIFO (Last In First Out) Operasi pada Stacks: Terdapat operasi dasar pada Stacks,
+
+
+
+
+```python
+def stack () :
+  s =[]
+  return (s)
+
+def push (s , data ):
+  s. append ( data )
+
+def pop(s):
+  data =s.pop()
+  return(data)
+
+def peek(s):
+  return s[-1]
+
+def isEmpty(s):
+  return (s ==[])
+
+def size(s):
+  return (len(s))
+
+def biner(desimal):
+    st = stack()
+
+    proses = []
+    while desimal > 0:
+        sisa = desimal % 2
+        push(st, sisa)
+        desimal = desimal // 2
+        push(proses, f"Push stack with {sisa} ---> {st}")
+
+    hasil = ""
+    while not isEmpty(st):
+        ambil = pop(st)
+        hasil += str(ambil)
+        push(proses, f"Pop stack with ---> {st}")
+
+    return hasil, proses
+
+num = 57
+hasil, proses = biner(num)
+
+for i in proses:
+  print(i)
+
+print(f"\nbiner {num} = {hasil}")
+
+
+#-----------------------------------------
+
+def stack():
+    s = []
+    return s
+
+def push(s, data):
+    s.append(data)
+
+def pop(s):
+    data = s.pop()
+    return data
+
+def peek(s):
+    return s[-1]
+
+def isEmpty(s):
+    return (s == [])
+
+def size(s):
+    return (len(s))
+
+def cek_kurung(num):
+    st = stack()
+    proses = []
+    error = []
+    chek = True
+    pasangan = {')':'(', ']':'[', '}':'{'}
+
+    for i in num:
+        if i in "([{":
+            push(st, i)
+            push(proses, f"Push stack with {i} --> {st}")
+
+        elif i in ")]}":
+            if not isEmpty(st):
+                ambil_st = pop(st)
+                push(proses, f"Pop Stack --> {st}")
+
+                if pasangan[i] != ambil_st:
+                    push(error, f"kurung buka {ambil_st} tidak cocok dengan {i}")
+                    chek = False
+            else:
+                push(error, "kelebihan kurung tutup")
+                chek = False
+
+    if not isEmpty(st):
+        push(error, "kelebihan kurung buka")
+        chek = False
+
+    return error, proses, chek
+
+
+persamaan = "([4+5]/[9+8]*[3+2])"
+error, proses, chek = cek_kurung(persamaan)
+
+print(chek)
+
+print("Proses Cek:")
+no = 1
+for i in proses:
+    print(f"{no}. {i}")
+    no += 1
+
+no = 1
+print("\nError:")
+for i in error:
+    print(f"{no}. {i}")
+    no += 1
+
+#-------------------------------------------------
+
+
+def stack():
+    s=[]
+    return (s)
+
+def push(s,data):
+    s.append(data)
+
+def pop(s):
+    data=s.pop()
+    return(data)
+
+def peek(s):
+    return(s[len(s)-1])
+
+def isEmpty(s):
+    return (s==[])
+
+def size(s):
+    return(len(s))
+
+infix = input("masukkan infix (pisahkan dengan spasi): ").split()
+opstack = stack()
+output = stack()
+
+operator = "*+-/"
+
+presenden = {
+    "*" : 2,
+    "/" : 2,
+    "+" : 1,
+    "-" : 1
+}
+
+for i in infix:
+    if i in operator:
+        while not isEmpty(opstack) and peek(opstack) in operator and presenden[i] <= presenden[peek(opstack)]:
+            push(output, pop(opstack))
+        push(opstack, i)
+
+    elif i == "(":
+        push(opstack, i)
+
+    elif i == ")":
+        while not isEmpty(opstack) and peek(opstack) != "(":
+            push(output, pop(opstack))
+        pop(opstack)
+    else:
+        push(output, i)
+
+while not isEmpty(opstack):
+    push(output, pop(opstack))
+
+hasil = ""
+for i in output:
+    hasil += i + " "
+
+print(f"Bentuk postfixnya adalah {hasil}")
+```
+
+    Push stack with 1 ---> [1]
+    Push stack with 0 ---> [1, 0]
+    Push stack with 0 ---> [1, 0, 0]
+    Push stack with 1 ---> [1, 0, 0, 1]
+    Push stack with 1 ---> [1, 0, 0, 1, 1]
+    Push stack with 1 ---> [1, 0, 0, 1, 1, 1]
+    Pop stack with ---> [1, 0, 0, 1, 1]
+    Pop stack with ---> [1, 0, 0, 1]
+    Pop stack with ---> [1, 0, 0]
+    Pop stack with ---> [1, 0]
+    Pop stack with ---> [1]
+    Pop stack with ---> []
+    
+    biner 57 = 111001
+    True
+    Proses Cek:
+    1. Push stack with ( --> ['(']
+    2. Push stack with [ --> ['(', '[']
+    3. Pop Stack --> ['(']
+    4. Push stack with [ --> ['(', '[']
+    5. Pop Stack --> ['(']
+    6. Push stack with [ --> ['(', '[']
+    7. Pop Stack --> ['(']
+    8. Pop Stack --> []
+    
+    Error:
+    
+
+    masukkan infix (pisahkan dengan spasi):  1
+    
+
+    Bentuk postfixnya adalah 1 
+    
+
+
+```python
+
+```
